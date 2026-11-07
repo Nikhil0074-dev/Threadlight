@@ -1,0 +1,7 @@
+Machine learning lets computers learn patterns from data instead of following fixed rules. In 2023, about 35% of companies reported using machine learning in production. Models need large datasets to learn useful patterns, and data quality matters more than model size in most projects.
+
+Training a large model can cost over $1 million in computing alone. Because of this, many teams start with small models and only scale up when the results justify the cost. Retailers use machine learning to predict demand, and banks use it to spot fraud.
+
+In 2012, a deep neural network won a major image recognition contest by a wide margin. In 2017, researchers introduced the transformer design, which now powers most language tools. In 2022, chat tools reached millions of users within weeks.
+
+Good projects start with a clear question. Teams that skip this step often build models nobody uses. Measuring a simple baseline first protects against wasted effort, and monitoring after launch catches models that slowly get worse.
