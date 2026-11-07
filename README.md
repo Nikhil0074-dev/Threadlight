@@ -42,7 +42,7 @@ node server/index.js
 The application serves its web UI and API from the same Express server. The frontend is static content in `public/` and does not have a separate build step.
 
 ## Configuration
-
+![Diagram](docs/diagram.png)
 The application reads configuration from process environment variables. `.env.example` is a reference template; this project does not load `.env` automatically.
 
 | Variable | Default | Purpose |
