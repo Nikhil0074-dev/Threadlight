@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Threadlight</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23151A33'/%3E%3Cpath d='M8 4 C8 14 18 12 20 18 S12 26 18 28' fill='none' stroke='%23F5A300' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#home" aria-label="Threadlight home">
+    <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M8 3 C8 14 19 11 21 18 S12 26 19 29" fill="none" stroke="#F5A300" stroke-width="3.4" stroke-linecap="round"/><circle cx="19" cy="29" r="2.6" fill="#F5A300"/></svg>
+    <span>Threadlight</span>
+  </a>
+  <div id="projectBar" class="projectbar" hidden>
+    <input id="projectTitle" class="titleinput" aria-label="Project name" maxlength="200">
+    <button id="undoBtn" class="ghost" title="Undo (Ctrl+Z)" disabled>Undo</button>
+    <button id="redoBtn" class="ghost" title="Redo (Ctrl+Shift+Z)" disabled>Redo</button>
+    <button id="saveBtn" class="solid">Save</button>
+    <div class="menuwrap">
+      <button id="exportBtn" class="accent" aria-haspopup="true" aria-expanded="false">Export</button>
+      <div id="exportMenu" class="menu" role="menu" hidden></div>
+    </div>
+  </div>
+  <span id="aiBadge" class="badge" title="Which analyzer writes the content"></span>
+</header>
+
+<main id="home" class="home" hidden>
+  <section class="hero">
+    <svg class="thread" viewBox="0 0 520 560" aria-hidden="true"><path d="M500 10 C300 40 480 200 280 230 S60 330 230 400 S420 470 160 548" fill="none" stroke="#F5A300" stroke-width="6" stroke-linecap="round"/><circle cx="500" cy="10" r="11" fill="#F5A300"/><circle cx="280" cy="230" r="14" fill="#151A33" stroke="#F5A300" stroke-width="6"/><circle cx="230" cy="400" r="14" fill="#151A33" stroke="#F5A300" stroke-width="6"/><circle cx="160" cy="548" r="11" fill="#F5A300"/></svg>
+    <h1>Turn a long thread into a sheet worth sharing.</h1>
+    <p>Paste a thread, a link, or a document. Threadlight finds the key points, keeps every number as written, and lays it out as an infographic or a swipeable carousel.</p>
+    <ul class="steps3"><li><b>1</b>Add a source</li><li><b>2</b>Check what was read</li><li><b>3</b>Edit and export</li></ul>
+    <button id="newBtn" class="accent big">Start a new infographic</button>
+  </section>
+  <section>
+    <h2>Your projects</h2>
+    <ul id="projectList" class="plist"></ul>
+    <p id="emptyProjects" class="muted" hidden>Nothing here yet. Start one above and it will be saved here.</p>
+  </section>
+</main>
+
+<main id="work" class="work" hidden>
+  <aside class="rail" aria-label="Source and settings">
+    <section class="step" id="stepSource">
+      <h2>Source</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" data-tab="text" aria-selected="true">Text</button>
+        <button role="tab" data-tab="thread" aria-selected="false">Thread</button>
+        <button role="tab" data-tab="url" aria-selected="false">Link</button>
+        <button role="tab" data-tab="file" aria-selected="false">File</button>
+      </div>
+      <div class="tabpane" data-pane="text"><textarea id="srcText" rows="9" placeholder="Paste an article, notes or any long text (at least 80 characters)."></textarea><div class="count" id="srcCount">0 words</div></div>
+      <div class="tabpane" data-pane="thread" hidden><textarea id="srcThread" rows="9" placeholder="Paste the thread. Posts can start with 1/, 2/ ... or be separated by blank lines. X does not allow reading thread links automatically."></textarea></div>
+      <div class="tabpane" data-pane="url" hidden><input id="srcUrl" type="url" placeholder="https://example.com/article"><p class="hint">Public pages only. Private network addresses are blocked.</p></div>
+      <div class="tabpane" data-pane="file" hidden>
+        <label class="drop" id="dropZone"><input id="srcFile" type="file" accept=".pdf,.docx,.txt,.md" hidden><span id="fileLabel">Drop a PDF, DOCX, TXT or MD file here, or click to choose (max 10 MB)</span></label>
+      </div>
+      <button id="readBtn" class="solid full">Read source</button>
+      <p id="srcMsg" class="msg" role="status"></p>
+    </section>
+
+    <section class="step" id="stepReview" hidden>
+      <h2>Check what was read</h2>
+      <div class="meta" id="srcMeta"></div>
+      <ul id="srcWarn" class="warn"></ul>
+      <textarea id="reviewText" rows="8" aria-label="Extracted text. You can fix mistakes here."></textarea>
+    </section>
+
+    <section class="step" id="stepGen" hidden>
+      <h2>Make it</h2>
+      <div class="seg" role="group" aria-label="Output type"><button data-mode="infographic" aria-pressed="true">Infographic</button><button data-mode="carousel" aria-pressed="false">Carousel</button></div>
+      <label class="field">Sections <output id="secOut">5</output><input id="secRange" type="range" min="2" max="10" value="5"></label>
+      <label class="field">Layout<select id="tplSelect"></select></label>
+      <button id="genBtn" class="accent full">Generate</button>
+      <p id="genMsg" class="msg" role="status"></p>
+    </section>
+  </aside>
+
+  <section class="table" aria-label="Preview">
+    <div id="empty" class="emptystate"><svg viewBox="0 0 200 120" width="200" aria-hidden="true"><path d="M10 100 C60 100 40 20 100 40 S150 110 190 20" fill="none" stroke="#F5A300" stroke-width="4" stroke-linecap="round"/><circle cx="190" cy="20" r="7" fill="#F5A300"/></svg><p>Your sheet appears here.<br>Add a source on the left to begin.</p></div>
+    <div id="busy" class="busy" hidden><div class="spinner"></div><span id="busyText">Working…</span></div>
+    <div id="sheetWrap" class="sheetwrap" hidden><div id="sheet" class="sheet"></div></div>
+  </section>
+
+  <aside class="inspector" id="inspector" aria-label="Edit content" hidden>
+    <section><h2>Look</h2>
+      <div id="swatches" class="swatches" role="radiogroup" aria-label="Color theme"></div>
+      <label class="field">Layout<select id="tplSelect2"></select></label>
+    </section>
+    <section><h2>Headline</h2>
+      <label class="field">Title<input id="fTitle" maxlength="110"></label>
+      <label class="field">Subtitle<input id="fSubtitle" maxlength="160"></label>
+      <label class="field">Summary<textarea id="fSummary" rows="3" maxlength="500"></textarea></label>
+    </section>
+    <section><h2>Sections</h2><div id="secList" class="seclist"></div><button id="addSec" class="ghost full">Add a section</button></section>
+    <section><h2>Key takeaways</h2><textarea id="fTake" rows="4" aria-label="One takeaway per line"></textarea><p class="hint">One per line.</p></section>
+  </aside>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script src="/app.js" type="module"></script>
+</body>
+</html>
