@@ -2,7 +2,7 @@
 
 Threadlight turns long-form text, pasted social threads, web articles, and supported documents into editable infographics or carousel slides. It includes a browser-based editor, a local JSON project store, image/document exports, and an optional Anthropic-powered analysis path.
 
-![(screenshots/05-infographic.png)}
+![(screenshots/05-infographic.png)]
 ## Features
 
 - Accept pasted text, pasted thread text, public web pages, and PDF, DOCX, TXT, or MD uploads.
