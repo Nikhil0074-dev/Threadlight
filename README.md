@@ -2,7 +2,7 @@
 
 Threadlight turns long-form text, pasted social threads, web articles, and supported documents into editable infographics or carousel slides. It includes a browser-based editor, a local JSON project store, image/document exports, and an optional Anthropic-powered analysis path.
 
-![(screenshots/05-infographic.png)]
+![](docs/screenshots/05-infographic.png)
 ## Features
 
 - Accept pasted text, pasted thread text, public web pages, and PDF, DOCX, TXT, or MD uploads.
@@ -18,12 +18,12 @@ Threadlight turns long-form text, pasted social threads, web articles, and suppo
   
 | | |
 |---|---|
-| ![](screenshots/01-home.png) | ![](screenshots/02-empty-workspace.png) |
-| ![](screenshots/03-blocked-link.png) | ![](screenshots/04-review-source.png) |
-| ![](screenshots/05-infographic.png) | ![](screenshots/06-section-trace.png) |
-| ![](screenshots/07-midnight-steps.png) | ![](screenshots/08-carousel.png) |
-| ![](screenshots/09-export-menu.png) | 
-| ![](screenshots/05b-infographic-full-sheetpng) | ![](screenshots/10-mobile-home.png) |
+| ![](docs/screenshots/01-home.png) | ![](docs/screenshots/02-empty-workspace.png) |
+| ![](docs/screenshots/03-blocked-link.png) | ![](docs/screenshots/04-review-source.png) |
+| ![](docs/screenshots/05-infographic.png) | ![](docs/screenshots/06-section-trace.png) |
+| ![](docs/screenshots/07-midnight-steps.png) | ![](docs/screenshots/08-carousel.png) |
+| ![](docs/screenshots/09-export-menu.png) | 
+| ![](docs/screenshots/05b-infographic-full-sheetpng) | ![](docs/screenshots/10-mobile-home.png) |
 ## Requirements
 
 - Node.js 20 or later.
